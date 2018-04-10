@@ -18,9 +18,9 @@ sys.path.insert(0, '../../')
 import SAVEFIG
 
 
-date = str(sys.argv[1])
-N_sets = int(sys.argv[2])
-parameters = str(sys.argv[3])
+date = str(sys.argv[1]) #give date of the positon to be calculated
+N_sets = int(sys.argv[2]) #jacknife - how many times?
+parameters = str(sys.argv[3]) #give the parameters txt file
 epoch_osc='2018/02/15'
 epoch='2455720.5'
 
