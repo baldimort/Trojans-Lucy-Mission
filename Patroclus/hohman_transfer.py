@@ -52,7 +52,7 @@ for i in (str(sys.argv[1]),str(sys.argv[2])): #two surfaces that need to be load
 
 
 
-'''fig1 = plt.figure(figsize=(3/4*6.4,3/4*6.4))
+fig1 = plt.figure(figsize=(3/4*6.4,3/4*6.4))
 ax1 = fig1.add_subplot(111)
 
 N = 100
@@ -73,7 +73,7 @@ ax1.set_ylabel('y (AU)',fontsize=12)
 ax1.plot((x_ell[0],x_ell[-1]),(y_ell[0],y_ell[-1]),'ro')
 plt.text(x_ell[0]-0.3,y_ell[0]-0.4,r'$\Delta v_1$',fontsize=12)
 plt.text(x_ell[-1]-0.3,y_ell[-1]-0.4,r'$\Delta v_2$',fontsize=12)
-SAVEFIG.main('save?','HOHMANN_TRANSFER_EXAMPLE') '''
+SAVEFIG.main('save?','HOHMANN_TRANSFER_EXAMPLE') 
 
 
 
