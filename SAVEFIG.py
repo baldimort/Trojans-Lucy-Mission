@@ -18,7 +18,7 @@ The function will then save the figure most recently called
 and save it in desired location with dpi=600 in png format.
 
 """
-def main()
+def main():
 	return 0
 
 
