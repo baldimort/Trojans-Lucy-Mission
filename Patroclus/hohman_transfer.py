@@ -14,7 +14,7 @@ rcParams['font.family'] = 'serif'
 rcParams['font.sans-serif'] = ['Times']
 rcParams['mathtext.fontset'] = 'cm'
 
-sys.path.insert(0, '../../')
+sys.path.insert(0, '../')
 import SAVEFIG
 
 G = 6.67e-11
@@ -68,6 +68,7 @@ x_ell,y_ell = r*np.cos(newthetas-np.pi/2), r*np.sin(newthetas-np.pi/2)
 
 ax1.plot(x_ell,y_ell,'r-')
 ax1.set_aspect('equal')
+ax1.tick_params(axis='both',which='both',direction='in',bottom=True,top=True,left=True,right=True)
 ax1.set_xlabel('x (AU)',fontsize=12)
 ax1.set_ylabel('y (AU)',fontsize=12)
 ax1.plot((x_ell[0],x_ell[-1]),(y_ell[0],y_ell[-1]),'ro')
