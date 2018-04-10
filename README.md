@@ -4,9 +4,9 @@ These scripts were used to produce the results in the report "Determining the Po
 
 All .dat files are data files to be used in conjunction with other scripts
 
-/CSV_positions contains the RA/DEC data for all asteroids and the archival data used
+/CSV_positions/ contains the RA/DEC data for all asteroids and the archival data used
 
-/Priamus contains the orbital parameters calculated for priamus, and copys of the csv's used.
+/Priamus/ contains the orbital parameters calculated for priamus, and copys of the csv's used.
 
 /Astrometry\_compare.py - opens Anchises\_180124.csv and compares the Astrometry of UCAC2, UCAC4 and Gaia
 
@@ -16,7 +16,7 @@ All .dat files are data files to be used in conjunction with other scripts
 
 /plot\_RA\_DECs\_observed.py - takes in MPC\_elements\_all\_asteroids.dat and produces a plot of all observations along with a line of the expected ephemeris given by the Minor Plant Centre orbital parameters.
 
-/Patroclus contains the orbital parameters calculated, excluding and including archival data
+/Patroclus/ contains the orbital parameters calculated, excluding and including archival data as well as the scripts described below
 
 /Patroclus/calc\_positions.py - calculates the distribution of positions from input orbital parameters and their errors, generates 1 sigma error ellipsoid,  1st arg: date of the position to be calculated, 2nd arg: Number of bootstrap positions, 3rd arg: the parameters .txt file (either 2018-03-23\_124333\_Parameters\_exc\_archival.dat or 2018-03-23\_124333\_Parameters\_inc\_archival.dat), 4th arg: number of error ellipses wanted
 
