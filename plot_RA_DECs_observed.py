@@ -24,7 +24,7 @@ obs.elevation = 119.5
 
 
 elements = open(str(sys.argv[1]),'r') #Minor planet centre data for all asteroids
-archival = str(sys.argv[2]) #y/n for archival data inclusion
+#archival = str(sys.argv[2]) #y/n for archival data inclusion
 
 specific_bodys = sys.argv[3:]
 if specific_bodys == []: specific_bodys = 0
@@ -41,9 +41,9 @@ while True:
 fig = plt.figure(figsize=(6.4*3/4,6.4*3/4))
 ax = fig.add_subplot(111)
 
-#dates = np.arange(np.datetime64('2018-01-01'),np.datetime64('2018-03-16'),np.timedelta64(1,'h'))
+dates = np.arange(np.datetime64('2018-01-01'),np.datetime64('2018-03-16'),np.timedelta64(1,'h'))
 
-dates = np.arange(np.datetime64('2000-01-01'),np.datetime64('2020-01-01'),np.timedelta64(1,'D'))
+#dates = np.arange(np.datetime64('2000-01-01'),np.datetime64('2020-01-01'),np.timedelta64(1,'D'))
 
 if specific_bodys == 0:
 	for i in bodys:
