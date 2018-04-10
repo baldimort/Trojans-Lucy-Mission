@@ -16,6 +16,8 @@
 
 **/plot\_RA\_DECs\_observed.py** - takes in MPC\_elements\_all\_asteroids.dat and produces a plot of all observations along with a line of the expected ephemeris given by the Minor Plant Centre orbital parameters.
 
+**/SAVEFIG.py** - conveinience module for easilly saving figures to a desired folder, not essential but left in repository so other scripts do not crash.
+
 **/Patroclus/** contains the orbital parameters calculated, excluding and including archival data as well as the scripts described below
 
 **/Patroclus/calc\_positions.py** - calculates the distribution of positions from input orbital parameters and their errors, generates 1 sigma error ellipsoid,  1st arg: date of the position to be calculated, 2nd arg: Number of bootstrap positions, 3rd arg: the parameters .txt file (either 2018-03-23\_124333\_Parameters\_exc\_archival.dat or 2018-03-23\_124333\_Parameters\_inc\_archival.dat), 4th arg: number of error ellipses wanted
