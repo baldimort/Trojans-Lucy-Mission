@@ -17,7 +17,7 @@ sys.path.insert(0, '../../')
 import SAVEFIG
 
 
-date = "2033-03-02"
+date = sys.argv[1]
 #N_sets = int(sys.argv[2])
 parameters = "JPL_params.dat"
 epoch_osc='2018/02/15'
