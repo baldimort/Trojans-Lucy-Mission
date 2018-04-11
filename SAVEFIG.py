@@ -18,10 +18,10 @@ The function will then save the figure most recently called
 and save it in desired location with dpi=600 in png format.
 
 """
-def main(null1, null2):
-	return 0
+#def main(null1, null2):
+#	return 0
 
 
-'''def main(message,filetag):
+def main(message,filetag):
 	a = raw_input(message)
-	if a == 'y': plt.savefig("/home/andrew/Uni/L3/Trojans/Report/Figs/"+time.strftime("%Y%m%d_%H%M%S_")+filetag+'.png',dpi=600,format='png')'''
+	if a == 'y': plt.savefig("/home/andrew/Uni/L3/Trojans/Report/Figs/"+time.strftime("%Y%m%d_%H%M%S_")+filetag+'.png',dpi=600,format='png')
