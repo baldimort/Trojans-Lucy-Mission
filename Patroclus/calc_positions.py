@@ -14,7 +14,7 @@ rcParams['font.family'] = 'serif'
 rcParams['font.sans-serif'] = ['Times']
 rcParams['mathtext.fontset'] = 'cm'
 
-sys.path.insert(0, '../../')
+sys.path.insert(0, '../')
 import SAVEFIG
 
 
@@ -72,7 +72,7 @@ out = np.apply_along_axis(find_pos,1,rand_params,date)
 #np.savetxt('params',rand_params)
 
 
-fig = plt.figure()
+fig = plt.figure(figsize=(3/4*6.4,3/4*6.4))
 ax = fig.add_subplot(111,projection='3d')
 ax.scatter(out[:,0],out[:,1],out[:,2],s=1)
 ax.plot(arcxyz[:,0],arcxyz[:,1],arcxyz[:,2],'r-')
@@ -103,11 +103,11 @@ def rot_z(theta,vs):
 	
 covxyz = np.cov(out.T)
 lambdas, vectors = np.linalg.eig(covxyz)
-rx,ry,rz = np.sqrt(lambdas) * 1
+rx,ry,rz = np.sqrt(lambdas) * 3
 
 #set of all thetas
-u = np.linspace(0,2*np.pi,100)
-v = np.linspace(0,np.pi,100)
+u = np.linspace(0,2*np.pi,200)
+v = np.linspace(0,np.pi,200)
 
 #convert to cartesian
 x = rx * np.outer(np.cos(u), np.sin(v))
@@ -122,13 +122,13 @@ thetaz = np.arctan(vmax[1]/vmax[0])
 x,y,z = np.cos(thetay)*x+np.sin(thetay)*z, y, -np.sin(thetay)*x+np.cos(thetay)*z
 x,y,z = np.cos(thetaz)*x-np.sin(thetaz)*y,np.sin(thetaz)*x+np.cos(thetaz)*y,z
 
-ax.plot_surface(x+means[0], y+means[1], z+means[2], alpha = 0.25, rstride=4,cstride=4, color='g')
+ax.plot_surface(x+means[0], y+means[1], z+means[2], alpha = 0.3, rstride=4,cstride=4, color='g')
 
-np.save('{}_ellipse_surface'.format(time.strftime('%Y%m%d_%H%M%S')),np.array([x+means[0], y+means[1], z+means[2]]))
+#np.save('{}_ellipse_surface'.format(time.strftime('%Y%m%d_%H%M%S')),np.array([x+means[0], y+means[1], z+means[2]]))
 
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
+ax.set_xlabel('x (AU)')
+ax.set_ylabel('y (AU)')
+ax.set_zlabel('z (AU)')
 
 #ax.plot([means[0],means[0]+1e-5*vmax[0]],[means[1],means[1]+1e-5*vmax[1]],[means[2],means[2]+1e-5*vmax[2]],'y-')
 
