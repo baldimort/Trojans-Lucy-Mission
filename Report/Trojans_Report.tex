@@ -1,0 +1,616 @@
+%%%%% Document Setup %%%%%%%%
+
+\documentclass[10pt, twocolumn]{revtex4}    % Font size (10,11 or 12pt) and column number (one or two).
+
+\usepackage{times}                          % Times New Roman font type
+
+\usepackage[a4paper, left=1.85cm, right=1.85cm,
+ top=1.85cm, bottom=1.85cm]{geometry}       % Defines paper size and margin length
+
+%\usepackage[font=small,
+%labelfont=bf,justification=justified,format=plain]{caption}                      % Defines caption font size as 9pt and caption title bolded
+
+
+\usepackage{graphics,graphicx,epsfig,ulem}	% Makes sure all graphics works
+\usepackage{amsmath} 						% Adds mathematical features for equations
+
+\graphicspath{{Figs/}}
+
+\usepackage{etoolbox}                       % Customise date to preferred format
+\makeatletter
+\patchcmd{\frontmatter@RRAP@format}{(}{}{}{}
+\patchcmd{\frontmatter@RRAP@format}{)}{}{}{}
+\renewcommand\Dated@name{}
+\makeatother
+
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{siunitx}
+
+\pagestyle{fancy}                           % Insert header
+\renewcommand{\headrulewidth}{0pt}
+\lhead{A. Baldacchino}                          % Your name
+\rhead{Determining the Position of Patroclus for the \textit{Lucy} Mission Rendezvous} 
+% Your report title               
+
+
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usepackage[hidelinks]{hyperref}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage{float}
+
+
+\def\bibsection{\section*{References}}        % Position refernce section correctly
+
+%\setlength{\belowcaptionskip}{-10pt}
+%\setlength{\intextsep}{5pt}
+%\setlength{\textfloatsep}{5pt}
+
+\usepackage{hhline}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
+\renewcommand\tabularxcolumn[1]{m{#1}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{C}{>{\centering\arraybackslash} m{6cm} }
+\usepackage{gensymb}
+%\captionsetup[figure]{justification=justified,singlelinecheck=off}
+
+
+\newcommand{\scite}[1]{\textsuperscript{\cite{#1}}}
+\newcommand{\Lucy}{\textit{Lucy }}
+
+
+%%%%% Document %%%%%
+\begin{document}                     
+
+\title{Determining the Position of Patroclus for the \textit{Lucy} Mission Rendezvous} 
+\date{Submitted: 25th April 2018}
+\author{A. Baldacchino, Lab Partner: L. Thomson}
+\affiliation{\normalfont L3 Astrolab, Epiphany Term}
+
+\begin{abstract}              
+
+The aim of our investigation was to study the Trojan asteroid Patroclus to determine its position for the 2033 flyby of the \textit{Lucy} mission. We studied various Trojan asteroids over the course of 7 weeks with the aim of using our own observations to determine their orbital parameters. We then combined our own observations with archival data, concentrating on Patroclus and Priamus, to improve the accuracy and confidence in our orbital parameters. The mean fractional uncertainty in the orbital parameters for Patroclus could be improved from $8.1 \times 10^{-4}$ to $3.5 \times 10^{-7}$ with the inclusion of archival data. The position of Patroclus could be calculated with a $1\sigma$ error ellipsoid of volume $3.6 \times 10^{-18}$ \si{AU^{3}}. The $\Delta v$ requirement for a Hohmann transfer to this position was also calculated and found to be $14.24$ \si{\kilo\metre\per\second}, with the difference in bounds on this value found to be negligible compared to the total $\Delta v$ requirement of the Hohmann transfer. 
+
+\end{abstract}
+
+\maketitle
+\thispagestyle{plain} % produces page number for front page
+
+\section{Introduction} 
+
+Jupiter's Trojan asteroids are made up of two groups of asteroids, the Greek camp and the Trojan camp, which are positioned at Jupiter's L4 and L5 Lagrange points respectively. At the time of writing, there are ${\sim}7000$ asteroids currently classified as Trojans with an assymetry in their distributions; the L4 point has ${\sim}4600$ asteroids and the L5 point has ${\sim}2400$.\textsuperscript{\cite{ListJupiterTrojans}} Studying these asteroids is important to understanding the evolution of the early solar system; they can act as physical indicators of the conditions of the nebula in which they formed and so provide us an insight into the conditions of the forming solar system.
+
+There is discussion in the literature as to how Jupiter's Trojans formed. Theories have varied and included being captured early in Jupiter's growth,\scite{FlemingoriginTrojanasteroids2000} by collisions,\scite{ShoemakerTrojanasteroidsPopulations1989} and due to the effects of gas drag.\scite{KortenkampCaptureTrojanAsteroids2001} Emery et al (2015) discuss gas drag and capture during Jupiter's formation in more detail.\textsuperscript{\cite{EmeryComplexHistoryTrojan2015}} However, none  of these three methods can account for the broad ${\sim}40\degree$ range in inclinations that are observed and has warranted further theories to be explored.
+
+Morbidelli et al (2005) performed simulations exploring how the asteroids could have been captured immediately after Jupiter and Saturn crossed the 1:2 mean motion resonance (MMR).\textsuperscript{\cite{MorbidelliChaoticcaptureJupiter2005a}} Their results match the orbital distribution of the observed Trojan asteroids and can account for the large distributions in inclinations.
+ 
+Nesvorn\'y et al (2013) build on the theory proposed by Morbidelli et al (2005) developing their 'Jumping Jupiter' model. Instead of a smooth migration over the 2:1 MMR, it was instead thought that it 'jumped' from $2$ to $2.3$ when Jupiter and Saturn scattered off Uranus, Neptune or another similar mass body.\scite{NesvornyCaptureTrojansJumping2013} This model also matches the orbital distributions of the observed Trojans and they propose could account for the asymmetry in the L4-L5 distributions with an ice giant passing near the the L5 point and depleting it of its bodies.
+
+It is due to the uncertain nature of the Trojan asteroids, and that no man-made satellite has yet visited the Trojans, that warranted NASA to approve the \textit{Lucy} mission which is planned to launch in October 2021. The aim of this mission is to investigate six of Jupiter's Trojans with its final flyby being of Patroclus in Jupiter's Trojan camp in March 2033. 
+
+Patroclus was highlighted as a worthwhile object to explore as it is one of the largest in its class of objects and it is also a binary system with its moon Menoetius which is not common.\scite{BuieSIZESHAPESTELLAR2015} The literature has also derived low densities for Patroclus suggesting that it could contain a high amount of water ice leading to the conclusion it was likely formed in the out parts of the solar system.\scite{Marchislowdensity8gcm32006}\scite{YangSpectroscopicSearchWater2006} These theories warrant closer investigation and hence why Patroclus was chosen as one of the targets for the \textit{Lucy} mission.
+
+For this mission to be able to proceed, it is important that the orbits of the bodies it plans to visit are well defined. This is so that an efficient flight plan that minimises the amount of fuel required, and hence the total cost of the mission, can be constructed. It is also important that the tolerances in the orbit are well known. As the accuracy to which the orbit is known is finite, the mission is required to include some reserve fuel so that the spacecraft would still be able to reach its targets at the limits of their known tolerances.
+
+The orbits of bodies can be determined through observations. If the body is observed on at least three different occasions and its Right Ascension (RA) and Declination (Dec) are measured, they can be used to determine its orbital parameters. A bodies orbital parameters completely define its Keplerian orbit and traditionally those six elements are: eccentricity ($e$), semi-major axis ($a$), inclination ($i$), longitude of the ascending node ($\Omega$), argument of periapsis ($\omega$) and true anomaly ($\nu$). The parameters are represented in Fig. \ref{fig: orbital params}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{Orbit1.png}
+\caption{A diagram of the six orbital parameters typically used to define the orbit of a body. Source: Wikipedia.\scite{FileOrbit1svg}}
+\label{fig: orbital params}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{Mean_anomaly_diagram.png}
+\caption{A diagram comparing the mean anomaly and true anomaly orbital parameters. Source: Wikipedia.\scite{Meananomalydiagram2015}}
+\label{fig: mean-true anom}
+\end{figure}
+
+In this investigation, the mean anomaly ($M$) is used instead of the true anomaly. The true anomaly is defined as the angle between the periapsis-focus vector to the object-focus vector in the orbital plane. The mean anomaly is defined as the angle in the orbital plane between the periapsis-focus vector and the imaginary object-focus vector where the object is projected onto a circular orbit around the same body with the same orbital period where an equal area is swept out in a specific time. The main difference between these parameters is that $M$ increases linearly in time whereas $\nu$ does not necessarily if the objects orbit is elliptical. The difference in these parameters is demonstrated in Fig. \ref{fig: mean-true anom}.
+
+As minor bodies are easily influenced by the larger bodies in the solar system, it is not correct to assume that their orbits are Keplerian. When a minor bodies orbital parameters are caluclated, they should also be quoted with an epoch of osculation, the date and time these parameters were calculated. This is so that the Keplerian orbit can be perturbed to take account of gravity from other bodies in the solar system, radiation pressure, atmospheric drag and other effects. This results in the orbit not being identical for each rotation which is in contradiction to the classical Keplerian orbit.
+
+It is our aim in this investigation to calculate the orbits of several Trojan asteroids, including the asteroid Patroclus, using clear band observations of the bodies. We will find the accuracy to which we can measure these orbits with the aim of finding the tolerances on the position of the asteroid Patroclus when \textit{Lucy} plans to rendezvous with it in March~2033.
+
+\section{Method}
+
+We first chose a sample of suitable asteroids that would be visible to us using our available equipment and time frame. The Trojan camp of Jovian asteroids were the only group that would be visible to us so this further restricted our sample choice. The asteroids that we chose were: 1974 FV1, Anchises, Ilioneus, Memnon, Mentor, Pandarus, Paris, Patroclus, Priamus and Troilus. These asteroids were chosen for the following reasons: their greater height in the sky at observation times would allow for greater seeing; their greater apparent magnitudes would allow for greater signal to noise ratios; these asteroids had been observed previously which would allow us to use archival data, this is important when refining our results later in our investigation.
+
+Observations were made from the 25th January 2018 to the 10th March 2018 on 10 different nights using a combination of the DRACO2, Far-East 16 and Pt5m telescopes. DRACO2 uses a 14-inch Meade LX200 telescope. Far-east uses a 16-inch Meade mounted on an Astelco NTM500 mount with both telescopes using a QSI CCD. Observations were made in the clear band.
+
+Once observations of our asteroids had been made, the images were analysed and the RA and Dec. of each object were measured. This was done using an astrometry solution found by matching the observed star field to the expected star field using a relevant star catalogue that would be chosen from our astrometry comparison. 
+
+\subsection*{Astrometry Comparison}
+
+There are various star catalogues that are available to be used to apply an astrometric fit to our images. The United States Naval Observatory (USNO) has released several star catalogues and revisions including both the UCAC2 catalogue, released in July 2003, and the final version of UCAC4, released in August 2012.\scite{ZachariassecondUSNaval2004}\scite{ZachariasFourthUSNaval2012} The USNO catalogues are the most widely used catalogues, however there are other all-sky catalogues available. This includes the Gaia catalogue which is formed from the first release of the \textit{Gaia} mission based on fourteen months of observations with the full catalogue aiming to be released in 2022.\scite{GaiaCollaborationGaiaDataRelease2016}
+
+These catalogues were chosen for comparison for the following reasons: UCAC2 was the default astrometric solution on the images we were using, UCAC4 was the most recent USNO catalogue released, GAIA was more recent that UCAC4 however it is less complete currently.
+
+The catalogues were compared by taking a sample of our observations of the asteroid Anchises, running the astrometry for each star catalogue and recording the observed RA and Dec with each star catalogue. These were then compared to the RA and Dec calculated by JPL's HORIZONS system which produces highly accurate ephemerides and can be used as a known control.\scite{HORIZONSSystem} The results of this comparison are shown in Fig. \ref{fig: astrom compare} and Table \ref{tab: astrom compare results}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{20180330_165134_ASTROM_COMPARE}
+\caption{The difference in $Dec.$ and $RA\cos(Dec)$ between the JPL HORIZONS ephemeris and our observations using astrometry solutions from the UCAC2 (blue), UCAC4 (green) and GAIA (red) star catalogues. The $1\sigma$ error ellipse is shown for all catalogues. The zero point on both axis is shown as a dotted line for reference.}
+\label{fig: astrom compare}
+\end{figure}
+
+\begin{table}[h!]
+\centering
+\begin{tabularx}{0.5\textwidth}{ Y Y Y }
+\hhline{===}
+Catalogue & Mean $\Delta RA \cos (Dec)$ (arcsecs) & Mean $\Delta Dec$ (arcsecs) \\[3pt] \hline
+UCAC2 & $-0.1 \pm 0.1$ & $0.2 \pm 0.1$ \\[3pt]
+UCAC4 & $-0.1 \pm 0.1$ & $0.0 \pm 0.2$ \\[3pt]
+GAIA & $-0.1 \pm 0.1$ & $0.0 \pm 0.2$ \\[3pt] \hline
+\end{tabularx}
+\caption{The mean $\Delta RA \cos (Dec)$ and mean $\Delta Dec$ for the UCAC2, UCAC4 and GAIA star catalogues compared to the JPL HORIZONS epehermis for twelve observations of Anchises.}
+\label{tab: astrom compare results}
+\end{table}
+
+The results in Fig. \ref{fig: astrom compare} and Table \ref{tab: astrom compare results} use 12 observations of Anchises taken on the 24th January 2018. The errors used in Table \ref{tab: astrom compare results} and the error ellipses in Fig. \ref{fig: astrom compare} are the $1\sigma$ root mean square error. These figures show how there is a systematic offset in the astrometry solution for UCAC2, specifically declination, compared to the ephemeris generated by JPL HORIZONS. UCAC4 and GAIA are both within error of $\Delta Dec = 0$ however have a larger spread than UCAC2. All three star catalogues are within error of $\Delta RA \cos (Dec)=0$.
+
+These results show that UCAC4 and GAIA are more accurate catalogues than UCAC2, this result was expected due to UCAC2 being significantly older than the other two catalogues. The difference between UCAC4 and GAIA is indistinguishable with the data set we have used. To further explore their difference and more accurately calculate the systematic offset in the star catalogues, a further investigation with more observations is required. Using these results, we took the decision to use the UCAC4 star catalogue for the astrometry in our images due to it being a complete catalogue, with the GAIA catalogue only having a preliminary incomplete release. 
+
+\subsection*{Orbit Determination}
+
+For the orbits to be determined, the RAs and Decs. of each asteroid from all of our observations had to be measured using the astrometric solution from the UCAC4 catalogue. Our results could then be used with the Gauss method to determine their orbits.
+
+The Gauss method is described in detail by Gronchi (2004) and is expanded on by Mitorabi (2014) who details how it can be adjusted from using only $3$ observations to using $N$ observations. This is more appropriate for our investigation as we are able to take numerous observations over a period of $7$ weeks which should improve the accuracy of our results. An outline of the algorithm for three observations described in "Orbital Mechanics for Engineering Students"\scite{CurtisOrbitalmechanicsengineering2008} is given below:
+
+\vspace{1ex}
+The orbital parameters can be calculated from the Right Ascension ($\alpha_i$) and Declination ($\delta_i$) of three observations and also using the observers position at these observations ($\mathbf{R}_i$) and the times of these observations ($t_i$) where $i=1,2,3$ corresponding to each distinct observation. The slant range unit vector is defined as $\mathbf{\hat{Q}}_i = \cos\delta_i \cos\alpha_i \mathbf{\hat{I}} + \cos\delta_i \sin\alpha_i \mathbf{\hat{J}} + \sin \delta_i \mathbf{\hat{K}}$ where $\mathbf{\hat{I},\hat{J},\hat{K}}$ are the heliocentric unit vectors.
+\begin{enumerate}
+ \item Calculate the time intervals between observations using the following:
+ \begin{equation}
+ \tau_1 = t_1 - t_2, \hspace{10pt} \tau_3 = t_3 - t_2, \hspace{10pt} \tau = \tau_3 - \tau_1.
+ \end{equation}
+ \item Calculate the cross products: 
+ \begin{equation}
+ \mathbf{p}_1 = \mathbf{\hat{Q}}_2 \times \mathbf{\hat{Q}}_3, \hspace{10pt} \mathbf{p}_2 = \mathbf{\hat{Q}}_1 \times \mathbf{\hat{Q}}_3, \hspace{10pt} \mathbf{p}_3 = \mathbf{\hat{Q}}_1 \times \mathbf{\hat{Q}}_2.
+ \end{equation}
+ \item Calculate $D_0 = \mathbf{\hat{Q}}_1 \cdot \mathbf{p}_1$.
+ \item Calculate the 9 scalar quantities $D_{ij},\ i,j=1,2,3$ where $D_{ij}$ is defined by:
+ \begin{equation}
+ D_{ij} = \mathbf{R}_i \cdot \mathbf{p}_j.
+ \end{equation} 
+ \item Calculate the quantities $A$ and $B$ given by:
+ \begin{equation}
+ A = \frac{1}{D_0}\left(-D_{12}\frac{\tau_3}{\tau} +D_{22} + D_{32} \frac{\tau_1}{\tau} \right),
+ \end{equation}
+ \begin{equation}
+ B = \frac{1}{6D_0} \left(D_{12}(\tau^2_3 - \tau^2)\frac{\tau_3}{\tau} + D_{32}(\tau^2 - \tau_1^2)\frac{\tau_1}{\tau}\right).
+ \end{equation}
+ \item Calculate the quantity, $E = \mathbf{R}_2 \cdot \mathbf{\hat{Q}}_2$.
+ \item Calculate the quantities $a,\ b,\ c$ using $R_2^2 = \mathbf{R}_2 \cdot \mathbf{R}_2$, $\mu=GM$ where $G$ is Newton's universal gravitational constant and $M$ is the mass of the body being orbited, and the equations:
+ \begin{equation}
+ a = -(A^2 + 2AE + R_2^2),
+ \end{equation}
+ \begin{equation}
+ b = -2\mu B(A+E),
+ \end{equation}
+ \begin{equation}
+ c = -\mu^2B^2.
+ \end{equation}
+ \item Find the roots of the equation:
+ \begin{equation}
+ x^8 + ax^6 +bx^3 +c = 0,
+ \end{equation}
+ with the most physically reasonable root equalling $r_2$. If more than one root seems appropriate, store them and continue the algorithm on all viable roots in parallel and then compare the calculated orbital parameters to the literature.
+ \item Calculate $Q_2 = A + \mu B/r_2^3$ and $Q_1$ and $Q_3$ using the following:
+ \begin{multline} 
+ Q_1 = \Bigg( \frac{6 \left(D_{31} \frac{\tau_1}{\tau_3} +D_{21}\frac{\tau}{\tau_3}\right) r^3_2 + \mu D_{31}(\tau^2 -\tau_1^2) \frac{\tau_1}{\tau_3} }{6r_2^3 + \mu(\tau^2-\tau^2_3)} \\
+ -D_{11} \Bigg) \frac{1}{D_0} ,
+ \end{multline}
+ \begin{multline} 
+ Q_3 = \Bigg( \frac{6 \left(D_{13} \frac{\tau_3}{\tau_1} -D_{23}\frac{\tau}{\tau_1}\right) r^3_2 + \mu D_{13}(\tau^2 - \tau_3^2) \frac{\tau_3}{\tau_31} }{6r_2^3 + \mu(\tau^2-\tau^2_3)} \\ 
+ - D_{33} \Bigg)\frac{1}{D_0} .
+ \end{multline}
+ \item Calculate the $\mathbf{r}_i,\ i=1,2,3$ vectors using
+ \begin{equation}
+ \mathbf{r_i} = \mathbf{R_i} + Q_i \mathbf{\hat{Q}}_i.
+ \end{equation}
+ \item Calculate $f_i,g_i,\ i=1,3$ using the equations:
+ \begin{equation}
+ f_i \approx 1 - \frac{1}{2}\frac{\mu}{r_2^3}\tau_i^2 ,
+ \end{equation}
+ \begin{equation}
+ g_i \approx \tau_i - \frac{1}{6}\frac{\mu}{r_2^3}\tau_i^3 .
+ \end{equation}
+ \item Calculate $\mathbf{v}_2$ using the equation:
+ \begin{equation}
+ \frac{1}{f_1g_3-f_3g_1}(-f_3\mathbf{r}_1+f_1\mathbf{r}_3) .
+ \end{equation}
+ \item Calculate the specific angular momentum:
+ \begin{equation}
+ \mathbf{h} = \mathbf{r}_2 \times \mathbf{v}_2 .
+ \end{equation} 
+ \item Calculate the inclination using the z-component of $\mathbf{h}$, $h_z$ and the equation:
+ \begin{equation}
+ i = \arccos\left( \frac{h_z}{|\mathbf{h}|} \right) .
+ \end{equation}
+ \item Calculate the vector that defines the node line, $N$, using:
+ \begin{equation}
+ \mathbf{N} = \mathbf{\hat{K}} \times \mathbf{h} .
+ \end{equation} 
+ \item Calculate the RA of the ascending node:
+ \begin{equation}
+ \Omega = \arccos \left( \frac{N_x}{|\mathbf{N}|} \right) ,
+ \end{equation}
+ where $N_x$ is the $x$ component of $\mathbf{N}$.
+ \item Calculate the eccentricity vector, $\mathbf{e}$, using:
+ \begin{equation}
+ \mathbf{e} = \frac{1}{\mu} \left[ \left(\mathbf{v}^2 - \frac{\mu}{|\mathbf{r}|} \right) \mathbf{r} - (\mathbf{r}\cdot\mathbf{v}) \mathbf{v} \right] ,
+ \end{equation}
+ where $e = |\mathbf{e}|$ is the eccentricity orbital parameter.
+ \item Calculate the argument of perigee using:
+ \begin{equation}
+ \omega = \arccos \left( \frac{\mathbf{N} \cdot \mathbf{e}}{|\mathbf{N}||\mathbf{e}|} \right) .
+ \end{equation}
+ \item Calculate the true anomaly using:
+ \begin{equation}
+ \nu = \arccos \left( \frac{\mathbf{e} \cdot \mathbf{r}}{|\mathbf{e}||\mathbf{r}|} \right) .
+ \end{equation}
+\end{enumerate}
+From the parameters $\mathbf{h},\ i,\ \Omega,\ \omega,\ e,\ \nu$ all other orbital parameters can be derived.
+\vspace{1ex}
+
+The implementation of the Gauss method we use is the Find\_Orb Orbit determination software.\scite{FindOrbOrbit} To verify that this implementation returns accurate results, we first test its accuracy using RA and Decs. from an ephemeris generated by JPL HORIZONS and investigate if the calculated orbital parameters from Find\_Orb converge to the JPL result. We would expect this to happen if the software was functioning correctly. 
+
+This analysis was first performed using an ephemeris of Patroclus for one observation per week for 13 weeks. This is approximately equal to the maximum number of observations we aimed to take in this investigation over the same time frame. The results of this preliminary investigation are shown in Fig. \ref{fig: JPL-find orb convergence}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{20180331_151420_JPL_FINDORB_CONVERGENCE}
+\caption{The absolute fractional residual between the Find\_Orb calculated orbital parameters and the JPL HORIZONS parameters using an increasing number of ephemeris observation points over 13 weeks.}
+\label{fig: JPL-find orb convergence}
+\end{figure}
+
+The results in Fig. \ref{fig: JPL-find orb convergence} show that, generally, Find\_Orb's solutions do converge to the JPL HORIZONS orbital parameters. However, the results are highly chaotic showing a large variance in the solutions being returned. This is most likely due to the observations being taken from a small arc in Patroclus' orbit.
+
+To investigate the effect of a greater arc of observations and to see if this improves convergence, this investigation was performed again. However, the observations were taken from the JPL HORIZONS ephemeris for one observation per month for 18 months excluding those that would be below the horizon in Durham. The results of this are shown in Fig. \ref{fig: JPL-find orb convergence 18mth}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{20180331_162447_JPL_FINDORB_CONVERGENCE2yr}
+\caption{The absolute fractional residual between the Find\_Orb calculated orbital parameters and the JPL HORIZONS parameters using an increasing number of ephemeris observation points over 18 months.}
+\label{fig: JPL-find orb convergence 18mth}
+\end{figure}
+
+Fig. \ref{fig: JPL-find orb convergence 18mth} shows that the convergence to the literature values is greater and faster when using observations taken from a greater arc length of the orbit as in this case, all parameters reach a a fractional residual $<10^{-5}$ after 8 observations, this does not happen for the shorter arc of observations. These results show how using observations over a longer time frame produce more accurate results. In this investigation, we will therefore couple our own observations with archival data to acquire more accurate results. However, both Figs. \ref{fig: JPL-find orb convergence} and \ref{fig: JPL-find orb convergence 18mth} show that a good level of convergence can be found using the Find\_Orb software and this implementation would be suitable for this investigation.
+
+We proceeded with using Find\_Orb to determine the orbital parameters of our asteroids. Once this was complete, we then focused our investigation on acquiring archival data for two of our asteroids, Patroclus and Priamus. For Patroclus 9 further observations from 2001 to 2017 and for Priamus, 5 further observations from 2011 to 2016 were acquired and used to improve the accuracy and error confidence in the calculated orbital parameters.
+
+The errors on the orbital parameters were calculated using a jackknifing method. This was performed using the following method: assuming we have N observations, we systematically remove one observation from the data set, we then calculate and keep a record of the orbital parameters on this set of $N-1$ observations, this is repeated until every observation has been removed once, we then have  a distribution for each orbital parameter that is fit to a gaussian where the mean is the orbital parameter of the population and the standard deviation is the error on that parameter. In this investigation, all errors are $1\sigma$ unless otherwise stated.
+
+\subsection*{Positional Prediction}
+
+Once the orbital parameters had been acquired, they can be used to predict the position of the asteroid at any given time. This is not trivial as it must take account of the osculating orbit.
+
+Using the Pyephem python package, the orbital parameters and epochs can be given and the position calculated. The specific algorithms are described in detail by Peter Duffett-Smith and Jonathan Zwart in "Practical Astronomy with your Calculator or Spreadsheet."\textsuperscript{\cite[p.121-130]{Duffett-SmithPracticalastronomyyour2011}}. An outline of the method is given here:
+
+\vspace{1ex}
+The heliocentric Cartesian coordinates can calculated from a bodies Keplerian orbital parameters.
+\begin{enumerate}
+\item Calculate the eccentric anomaly, $E$, from the mean anomaly, $M$, and eccentricity, $e$, using a suitable numerical method on the equation:
+\begin{equation}
+M = E - e \sin E .
+\end{equation}
+\item Calculate the true anomaly, $\nu$, from the eccentric anomaly and eccentricity using the equation:
+\begin{equation}
+\tan \frac{\nu}{2} = \left(\frac{1+e}{1-e} \right)^{1/2} \tan \frac{E}{2} .
+\end{equation}
+\item Calculate the radial distance, $r$, from the semi-major axis, $a$, using the equation:
+\begin{equation}
+r = a(1-e\cos E) .
+\end{equation}
+\item Calculate the $x,\ y,\ z$ coordinates using the equations:
+\begin{equation} \label{eq: xpos}
+x = r(\cos\Omega\cos(\omega+\nu) - \sin\Omega\sin(\omega+\nu)\cos i) ,
+\end{equation}
+\begin{equation} \label{eq: ypos}
+y = r(\sin\Omega\cos(\omega+\nu) + \cos\Omega\sin(\omega+\nu)\cos i) ,
+\end{equation}
+\begin{equation} \label{eq: zpos}
+z = r\sin i \sin(\omega+\nu) .
+\end{equation}
+\end{enumerate}
+Equations (\ref{eq: xpos}), (\ref{eq: ypos}) and (\ref{eq: zpos}) define the heliocentric coordinate position of the asteroid with the $x$ axis direction based on the epoch of the mean anomaly and in the plane of the ecliptic, the $y$ axis is perpendicular to the $x$ axis in the plane of the ecliptic and the $z$ axis is normal to the ecliptic.
+\vspace{1ex}
+
+The errors on the orbital parameters are propagated through to the position by generating a sample of orbital parameters that are perturbed by a random Gaussian distribution with the mean as the orbital parameter and standard deviation equal to the error on the orbital parameter. Positions can then be calculated from this randomised sample of orbital parameters such that you then have a distribution of positions for the asteroid. The error in each Cartesian direction is then given by the square root of the diagonal elements of the covariance matrix of this position distribution. An error ellipsoid can also be generated from this distribution using the eigenvalues and eigenvectors of the covariance matrix where the root of the eigenvalues gives the error in each direction of the basis given by the eigenvectors. The root of the eigenvalues are used as the principal semi-axes of the ellipsoid. The volume of the ellipsoid can then be calculated to determine the confidence volume, the volume of an ellipsoid, $V$, is given by:
+\begin{equation} \label{eq: v ellipsoid}
+V = \frac{4}{3}\pi a b c ,
+\end{equation}
+where $a,\ b,\ c$ are the principal semi-axes lengths.
+
+\subsection*{Orbital Transfer}
+
+Once the position of the asteroid has been determined, the possible orbital transfers to the asteroid can be investigated. For this investigation we will assume that the \textit{Lucy} spacecraft will perform a Hohmann transfer from a parking orbit at the Earths heliocentric radius to the predicted asteroids position, within the plane of the asteroids orbit. 
+
+A Hohmann transfer assumes an initial Circular parking orbit in the plane of the target orbit. It consists of two instantaneous burns, the first takes the initial circular orbit to an elliptical orbit with its apoapsis at the radius of the target orbit. The second burn then occurs at the apoapsis of the elliptical orbit to convert the elliptical orbit to the target orbit. An illustration of the Hohmann transfer orbit is shown in Fig. \ref{fig: hohmann trasnfer} showing the first and second burns, $\Delta v_1$ and $\Delta v_2$ respectively.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{20180410_200052_HOHMANN_TRANSFER_EXAMPLE}
+\caption{The green and blue lines represent circular orbits with radii equal to 1 and 3 AU respectively. The red line represents the Hohmann transfer. The burn positions are marked with red points and text. The yellow point represents the sun.}
+\label{fig: hohmann trasnfer}
+\end{figure}
+
+The change in velocity required to achieve these orbits is given by the following equations:
+\begin{equation} \label{eq: delta v1}
+\Delta v_1 = \sqrt{\frac{\mu}{r_1}}\left( \sqrt{\frac{2r_2}{r_1+r_2}}-1 \right),
+\end{equation} 
+\begin{equation} \label{eq: delta v2}
+\Delta v_2 = \sqrt{\frac{\mu}{r_2}}\left( 1- \sqrt{\frac{2r_1}{r_1+r_2}} \right),
+\end{equation} 
+where $r_1$ is the radius of the inner orbit, $r_2$ is the radius of the outer orbit and $\mu = GM$ where $G$ is Newton's gravitational constant and $M$ is the mass of the body being orbited, in our case the sun. The total velocity change required by the Hohmann transfer, $\Delta v_{tot}$ is given trivially by the sum of $\Delta v_1$ and $\Delta v_2$.
+
+Using our calculated positions for Patroclus, we can find the maximum and minimum radii of the $1\sigma$ error ellipsoid. We can then use Equations (\ref{eq: delta v1}) and (\ref{eq: delta v2}) to calculate the range in $\Delta v_{tot}$ due to the uncertainty in Patroclus' calculated position. For the \textit{Lucy} mission, it is the aim to put an upper bound on the $\Delta v_{tot}$ requirement to reduce the fuel requirement and hence the mass of the spacecraft.
+
+Modelling the orbital transfer to Patroclus as a Hohmann transfer from a parking orbit at Earth's radius is a simplification to the flight plan originally suggested for the \textit{Lucy} mission which will first fly to the L4 camp of Trojan asteroids before switching to Patroclus in the L5 camp using a complex set of orbital manoeuvrers.\scite{47thLunarPlanetary} However, this simplified orbital transfer will highlight the difference in $\Delta v$ requirements from increasing the confidence in the calculated position for Patroclus.
+
+\section{Results} 
+
+The observations acquired in this investigation from 24th January 2018 to 10th March 2018 are shown in Fig. \ref{fig: observations}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{20180402_115205_OBSERVATIONS_MAP}
+\caption{The points show the Right-Ascensions and Declinations of our asteroids acquired from our observations. The lines represent the expected movement of our asteroids over the 7 week observing period. The orbital parameters used were from the IAU Minor Planet Centre.\scite{IAUMinorPlanet}}
+\label{fig: observations}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{20180402_155517_PAT_LIT_CONVERGENCE}
+\caption{The absolute fractional residual between our calculated orbital parameters and the literature as the number of observations increases for Patroclus.}
+\label{fig: pat convergence}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{20180402_171730_OBSERVATIONS_MAP}
+\caption{The points represent the observations used to calculate their orbital parameters in Table \ref{tab: orbital parameters2}. The line represents its literature orbital path from the 1st January 2000 to the 1st January 2020. There are two distinct lines for each asteroid as the orbital period is ${\sim}12$ years and so each asteroid will complete ${\sim}1.7$ orbits}
+\label{fig: observations2}
+\end{figure}
+
+The Find\_Orb software was used to fit orbits to eight of our ten asteroids. 1974 FV1 and Mentor could not be fit to orbits due to us only obtaining 3 observations for each, the jackknifing technique used to obtain errors on the orbital parameters requires at least 4 observations. The orbital parameters are given in Table \ref{tab: orbital parameters}.
+
+Table \ref{tab: orbital parameters} demonstrates that the method used in this investigation is suitable for acquiring orbital parameters as all parameters for 3 asteroids were found to match within $1\sigma$ error of the literature with a further 4 asteroid's parameters found to within $3\sigma$ error of the literature. Ilioneus was the only asteroid that did not fall in either of these two criteria which is most likely due to a lack of observations as it was only observed on 4 nights. Table \ref{tab: orbital parameters} shows smaller errors were achievable with more observations. This is supported by Fig. \ref{fig: pat convergence} which shows that as the number of observations used in the orbit solution is increased, the results better converge to the literature value.
+
+Our own observations can also be combined with archival data for Patroclus and Priamus to improve the accuracy of the calculated orbital parameters. The archival observations used are displayed in Fig. \ref{fig: observations2} and the improved orbital parameters are displayed in Table \ref{tab: orbital parameters2}.
+
+Both sets of orbital parameters for Patroclus (from Table \ref{tab: orbital parameters} and Table \ref{tab: orbital parameters2}) were used to calculate its predicted position for the date of 2nd March 2033, this being the planned date for \textit{Lucy} to flyby Patroclus. The results of the predicted position are given in Table \ref{tab: patroclus position xyz} with error ellipsoids for their positions given in Fig. \ref{fig: pat position ellipsoid}. The ellipsoids shown in Fig. \ref{fig: pat position ellipsoid} are at the $3\sigma$ confidence level.
+
+\begin{table}[t!]
+\centering
+\begin{tabularx}{0.5\textwidth}{ Y Y Y Y }
+\hhline{====}
+& $x$ (AU) & $y$ (AU) & $z$ (AU) \\[3pt] \hline
+Excluding archival data & $-4.655 \pm 0.006$ & $1.53 \pm 0.04$ & $-0.49 \pm 0.03$ \\[3pt]
+
+Including archival data & $-4.6553203 \pm 0.0000009$ & $1.555832 \pm 0.000004$ & $-0.467951 \pm 0.000003$ \\[3pt] 
+
+Literature & $-4.6553217$ & $1.555834$ & $-0.467952$\\[3pt] \hline
+
+\end{tabularx}
+\caption{The position of Patroclus on 2nd March 2033, the date of the \textit{Lucy} mission rendezvous. The error bars given are $1\sigma$. The literature values given were calculated using the orbital parameters from JPL HORIZONS.}
+\label{tab: patroclus position xyz}
+\end{table} 
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.45\textwidth]{20180411_125829_ERROR_ELLIPSOID_PAT}
+\caption{The distribution of positions for Patroclus calculated from its orbital parameters including (top panel) and excluding (bottom panel) archival data. The error ellipsoid shown is at the $3\sigma$ confidence level.}
+\label{fig: pat position ellipsoid}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{0.5\textwidth}{ Y Y Y Y}
+\hhline{====}
+& Upper bound, $\Delta v_{T,u}$ (\si{\kilo\metre\per\second}) & Lower bound, $\Delta v_{T,l}$ (\si{\kilo\metre\per\second}) & $\frac{2( \Delta v_{T,u}-\Delta v_{T,l} )}{\Delta v_{T,u}+\Delta v_{T,l}}$ \\[3pt] \hline
+Excluding archival data & $14.243$ & $14.236$ & $4.9 \times 10^{-4}$ \\[3pt]
+
+Including archival data & $14.243685$ & $14.243684$ & $7.0 \times 10^{-8}$ \\[3pt] \hline
+
+\end{tabularx}
+\caption{The upper and lower bounds for a Hohmann transfer to the positions in Table \ref{tab: patroclus position xyz} based on their errors.}
+\label{tab: upper lower bounds dv}
+\end{table} 
+
+These calculated positions can be used with their errors to put an upper and lower bound on the $\Delta v_{T}$ requirement for a Hohmann transfer in the plane of the orbit of the asteroid. These upper and lower bounds are given in Table \ref{tab: upper lower bounds dv}.
+
+\begin{table*}[t]
+\centering
+\begin{tabularx}{\textwidth}{ Y Y Y Y Y Y Y Y Y }
+\hhline{=========}
+
+Asteroid &  & Mean Anomaly, $M$ ($\degree$) & Argument of Perihelion, $\omega$ ($\degree$) & Longitude of Ascending Node, $\Omega$ ($\degree$) & Semi-major axis, $a$ (AU) & Eccentricity, $e$ & Inclination, $i$ ($\degree$) & Number of Observations \\[3pt] \hline
+
+\multirow{2}{*}{Anchises} & Observed & $294 \pm 2$ & $39 \pm 2$ & $284.2 \pm 0.2$ & $5.29 \pm 0.02$ & $0.147 \pm 0.006$ & $6.96 \pm 0.03$ & $7$ \\[3pt]
+& Literature & $294$ & $41$ & $283.9$ & $5.31$ & $0.139$ & $6.91$ & \\[3pt] \hline
+
+\multirow{2}{*}{Ilioneus} & Observed & $221 \pm 5$ & $220 \pm 10$ & $242.0 \pm 0.2$ & $5.6 \pm 0.1$ & $0.13 \pm 0.03$ & $15.48 \pm 0.08$ &  $4$ \\[3pt]
+& Literature & $320$ & $112$ & $242.5$ & $5.23$ & $0.01$ & $15.7$ & \\[3pt] \hline
+
+\multirow{2}{*}{Memnon} & Observed & $334 \pm 2$ & $277 \pm 2$ & $133.94 \pm 0.07$ & $5.239 \pm 0.002$ & $0.052 \pm 0.001$ & $27.20 \pm 0.04$ & $5$ \\[3pt]
+& Literature & $336$ & $275$ & $133.98$ & $5.236$ & $0.051$ & $27.22$ & \\[3pt] \hline
+
+\multirow{2}{*}{Pandarus} & Observed & $92 \pm 1$ & $41 \pm 1$ & $179.78 \pm 0.01$ & $5.182 \pm 0.002$ & $0.068 \pm 0.001$ & $1.856 \pm 0.002$ & $7$ \\[3pt]
+& Literature & $92$ & $40$ & $179.79$ & $5.183$ & $0.068$ & $1.854$ & \\[3pt] \hline
+
+\multirow{2}{*}{Paris} & Observed & $65.40 \pm 0.07$ & $150.61 \pm 0.04$ & $135.909 \pm 0.005$ & $5.2221 \pm 0.0001$ & $0.1270 \pm 0.0003$ & $27.852 \pm 0.006$ & $9$ \\[3pt]
+& Literature & $65.61$ & $150.49$ & $135.918$ & $5.2222$ & $0.1278$ & $27.863$ & \\[3pt] \hline
+
+
+\multirow{2}{*}{Patroclus} & Observed & $324.8 \pm 0.4$ & $308.2 \pm 0.3$ & $44.38 \pm 0.01$ & $5.220 \pm 0.001$ & $0.1398 \pm 0.0003$ & $22.049 \pm 0.002$ & $9$ \\[3pt]
+& Literature & $325.2$ & $307.9$ & $44.37$ & $5.218$ & $0.1400$ & $22.053$ & \\[3pt] \hline
+
+\multirow{2}{*}{Priamus} & Observed & $44.9 \pm 0.2$ & $335.1 \pm 0.1$ & $301.60 \pm 0.05$ & $5.173 \pm 0.002$ & $0.123 \pm 0.002$ & $8.912 \pm 0.009$ & $7$ \\[3pt]
+& Literature & $44.8$ & $335.2$ & $301.64$ & $5.172$ & $0.124$ & $8.919$ & \\[3pt] \hline
+
+\multirow{2}{*}{Troilus} & Observed & $247 \pm 2$ & $295 \pm 2$ & $48.56 \pm 0.03$ & $5.241 \pm 0.003$ & $0.0912 \pm 0.0005$ & $33.56 \pm 0.01$ & $6$ \\[3pt]
+& Literature & $247$ & $295$ & $48.56$ & $5.240$ & $0.0911$ & $33.56$ & \\[3pt] \hline
+
+\end{tabularx}
+\caption{The calculated orbital parameters for 8 of our observed asteroids. The number of observations used to calculate the parameters is also displayed. The literature values were taken from JPL HORIZONS.\scite{HORIZONSSystem} The epochs of the literature and observed results were the same.}
+\label{tab: orbital parameters}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\begin{tabularx}{\textwidth}{ Y Y Y Y Y Y Y Y Y }
+\hhline{=========}
+
+Asteroid &  & Mean Anomaly, $M$ ($\degree$) & Argument of Perihelion, $\omega$ ($\degree$) & Longitude of Ascending Node, $\Omega$ ($\degree$) & Semi-major axis, $a$ (AU) & Eccentricity, $e$ & Inclination, $i$ ($\degree$) & Number of Observations \\[3pt] \hline
+
+\multirow{2}{*}{Patroclus} & Observed & $325.19538 \pm 0.00004$ & $307.85954 \pm 0.00003$ & $44.365937 \pm 0.000009$ & $5.2184995 \pm 0.0000001$ & $0.1399506 \pm 0.0000002$ & $22.052693 \pm 0.000005$ & $17$ \\[3pt]
+& Literature & $325.19545$ & $307.85953$ & $44.365963$ & $5.2184997$ & $0.1399500$ & $22.052699$ & \\[3pt] \hline
+
+\multirow{2}{*}{Priamus} & Observed & $44.7601 \pm 0.0002$ & $335.2247 \pm 0.0002$ & $301.63926 \pm 0.00008$ & $5.171862 \pm 0.000004$ & $0.1237472 \pm 0.0000009$ & $8.91919 \pm 0.00001$ & $17$ \\[3pt]
+& Literature & $44.7607$ & $335.2235$ & $301.63945$ & $5.171847$ & $0.1237506$ & $8.91919$ & \\[3pt] \hline
+
+\end{tabularx}
+\caption{The calculated orbital parameters for 2 of our observed asteroids including the archival data. The number of observations used to calculate the parameters is also displayed.}
+\label{tab: orbital parameters2}
+\end{table*} 
+
+\section{Discussion}
+
+The result of the star catalogue preliminary investigation revealed a systematic error of $0.2\pm0.1$ arcsecs in Dec. compared to the JPL HORZONS ephemeris. Initially, this was the star catalogue being used in our images, however, based on this result we took the decision to use astrometry based on the UCAC4 star catalogue as this was accurate to JPL HORIZONS within error. The decision to not use GAIA was based on that catalogue not having a full release published as yet. It would require further investigation with a greater number of observations to more accurately determine the offsets and reduce the errors between the star catalogues (UCAC2, UCAC4 and GAIA) and JPL HORIZONS.
+
+Our initial sample choice of asteroids was good, they provided a range of difficulties in acquiring measurements with all but 2 asteroids, 1974 FV1 and Mentor, not producing enough observations to perform orbit determination. This was due to them being very low in the sky, when conditions were such that there was minor cloud cover, other asteroids were visible so observations of these could taken but observations of these 2 asteroids were not possible. Orbit determination was then run using the Find\_Orb software with all parameters for 3 asteroids within $1\sigma$ errors of the literature and all parameters for a further 4 asteroids within $3\sigma$ errors of the literature. The literature values were taken from JPL HORIZONS. The main reason that only 3 asteroids were able to be within $1\sigma$ errors is that our observations only ranged from the 24th January to the 10th March, a span of 45 days. As the approximate time period of a circular Trojan orbit is 12 years (4380 days), using our own observations we are only covering an arc length of ${\sim}1\%$ of its total orbit which produces more inaccurate results with higher errors than compared to a larger arc length.
+
+It is shown trivially in Figs. \ref{fig: JPL-find orb convergence} and \ref{fig: JPL-find orb convergence 18mth} that generally as the number of observations increases, the orbital parameters better converge to the literature values. Fig. \ref{fig: JPL-find orb convergence 18mth} shows that increasing the time step between observations can produce more accurate results. This supports the notion that more accurate results can be achieved by maximising the observed arc length of its orbit.
+
+Focusing our investigation then on Patroclus and Priamus, suitable archival data was sourced for these asteroids and the orbital parameters recalculated. Using this archival data, the arc length of observations was significantly increased: for Patroclus, the earliest data obtained was from October 2001 and so we had sufficient data to cover ${\sim}1.4$ orbits; for Priamus, data was obtained from October 2011 and so we had archival data covering ${\sim}50\%$ of its total orbit.
+
+These greater arc lengths allow a solution with a far greater confidence to be calculated from our bootstrapping method. The mean fractional uncertainty in our orbital parameters for Patroclus using only our own observations is $8.1 \times 10^{-4}$, this reduces by 3 orders of magnitude to $3.5 \times 10^{-7}$ when the archival data is included in the computation of the orbital parameters. The same trend continues for Priamus which has a mean fractional uncertainty of $3.8 \times 10^{-3}$ using our own observations which reduces to $2.4 \times 10^{-6}$ including archival data. These results highlight the importance of including archival data in this investigation, the accuracy and confidence in our results and can be significantly increased with the inclusion of archival data, which is highly important to the aim of this investigation as these errors are propagated through to the calculation of Patroclus' position for the \textit{Lucy} rendezvous.
+
+The orbital parameters calculated using archival data have significantly smaller error bars associated with them than compared to the orbital parameters using only our own observations. Only 2 parameters are within $1\sigma$ error bars of the literature however if the error bars are extended to $3\sigma$, a further 7 are in agreement. The small differences between our values and the literature may not be due to errors in our method. These asteroids have osculating orbital parameters meaning that they change over time. The JPL HORIZONS orbital parameters for Patroclus were calculated on 21st June 2017 whereas our orbital parameters use an epoch of osculation based on the mean date of our observations. As these parameters change over time, significant differences in epochs such as this could be the cause in our results not aligning exactly with the literature.
+
+When we use our calculated orbital parameters for the prediction of Patroclus' position, we can calculate the $1\sigma$ error ellipsoid based on the distribution of calculated possible positions. The error ellipsoid has semi-major axis lengths equal to the eigenvalues of the covariance matrix of the position distribution. The volume of the $1\sigma$ error ellipsoid can be calculated using Eq. (\ref{eq: v ellipsoid}). The volume of the $1\sigma$ ellipsoid calculated solely from our own observations was found to be $1.7 \times 10^{-7}$ \si{AU^{3}} whereas the volume of the ellipsoid found using orbital parameters including the archival data was found to be $3.6 \times 10^{-18}$ \si{AU\cubed}. This is a significant improvement in confidence region with the volume decreasing by a factor of $10^{11}$. 
+
+This could be as highly significant difference to a NASA mission such as \textit{Lucy} which has very limited constraints on resources such as fuel. To investigate the effect of this on the fuel requirements, the maximum radii from the error ellipsoids including and excluding archival data were used to find $\Delta v$ requirements of a Hohmann transfer to the positions calculated for Patroclus. The calculated bounds on the $\Delta v_{tot}$ requirements are given in Table \ref{tab: upper lower bounds dv}. This shows how the difference in the bounds on the $\Delta v_{tot}$ requirement can be significantly reduced if using a position of Patroclus with smaller error bars. The fractional uncertainty in the $\Delta v_{tot}$ requirement can be reduced from $4.9 \times 10^{-4}$ to $7.0 \times 10^{-8}$ with the inclusion of the archival data. 
+
+This reduction in the uncertainty of the $\Delta v_{tot}$ requirement would somewhat be beneficial for the \Lucy mission as a high level of accuracy is required when performing orbital manoeuvrers and performing a flyby with the lowest possible separation with Patroclus. However, this would not be significantly beneficial in reducing the mass of the \Lucy mission as a fractional uncertainty of $4.9 \times 10^{-4}$ equates to $\Delta v \approx 7$ \si{\metre\per\second}, an amount largely negligible when considering $\Delta v_{tot} \approx 14$ \si{\km\per\s} for the complete Hohmann transfer and so the mass of fuel this would equate to would also be largely negligible.
+
+\section{Conclusions}
+
+Our investigation aimed to accurately determine the position of the \Lucy spacecraft for its flyby of the Trojan asteroid Patroclus. We did this by initially selecting 10 asteroids to study. Observations of these were taken using the Far-East 16, DRACO2 and Pt5m telescopes in the clear band over a period of 7 weeks. Before positional measurements could be taken from our images, the varying star catalogues first had to be investigated.
+
+The UCAC2, UCAC4 and GAIA star catalogues were compared to investigate their deviations from the JPL HORIZONS ephemeris calculator. UCAC4 and Gaia were found to be in agreement with JPL HORIZONS within error however UCAC2 was found to have a deviation from JPL HORIZONS of $0.2 \pm 0.1$ in declination. This was not surprising from an older star catalogue.
+
+Once the positions of our asteroids in terms of RA and Dec. were measured from our images, they could be used with an implementation of the Gauss method to determine their orbital parameters. This implementation was verified and found to converge to the orbital parameters given by JPL HORIZONS. The orbital parameters were determined for 8 of our 10 initial asteroid sample, orbital parameters could not be determined for 1974 FV1 and Mentor as an insufficient number of observations were taken. Archival data was obtained for Patroclus and Priamus and coupled with our own observations to find improved orbital parameters for these asteroids.
+
+All orbital parameters calculated using solely our own observations for 7 of our asteroids were found to be accurate to the literature within $3\sigma$ error bars. The main cause of inaccuracies is most likely due to the short arc of observation we had of our asteroids, our observations only covered ${\sim}1\%$ of the asteroids full orbit. With the improve orbital parameters for Patroclus and Priamus, 9 of the 12 orbital parameters are in agreement with JPL HORIZONS. Inaccuracies in this case was most likely due to a difference in the epoch of osculation for our parameters, with our epoch being taken as the average day of observation. This differed to JPL HORIZONS which depended on when the calculation was performed, in the case of Patroclus, this was 21st June 2017.
+
+The orbital parameters for Patroclus could then be used to calculate its predicted position for the \Lucy mission rendezvous. The positions and error in positions using orbital parameters including and excluding archival data were compared. The confidence in the position including archival data was significantly higher than the position calculated excluding the archival data with volume of the $1\sigma$ error ellipsoid reducing from $1.7 \times 10^{-7}$ \si{AU^{3}} to $3.6 \times 10^{-18}$ \si{AU\cubed}.
+
+The $\Delta v$ requirement for a Hohmann transfer to these positions was then calculated with an upper and lower bound based on the errors in the positions. The fractional uncertainty in the $\Delta v$ requirement could be reduced from $4.9 \times 10^{-4}$ to $7.0 \times 10^{-8}$. This is significant as it would allow an accurate orbital transfer, however, a fractional uncertainty of $4.9 \times 10^{-4}$ equates to $\Delta v \approx 7$ \si{\metre\per\second}. This is negligible compared to the $\Delta v \approx 14$ \si{\kilo\metre\per\second} of the complete Hohmann transfer.
+ 
+%Words \cite{MorbidelliChaoticcaptureJupiter2005a}
+
+\vspace{1ex}
+%\begin{acknowledgments}
+%(OPTIONAL) The author would like to thank...
+%
+%\end{acknowledgments}
+%
+%
+\normalem
+\bibliographystyle{ieeetr} %UNCOMMENT THIS FOR BIB
+\bibliography{Trojans} %UNCOMMENT THIS FOR BIB
+
+\clearpage
+\appendix
+
+\section{Observing Log}
+
+\begin{table}[h!]
+\centering
+\begin{tabularx}{0.5\textwidth}{ Y Y Y Y }
+\hhline{====}
+
+Date (2018) & Telescope & Conditions & Objects Observed \\ \hline 
+24th January & Far-East 16 & Cloudy & Anchises, Paris, Patroclus \\ \hline
+
+29th January & Far-East 16 & Cloudy/Clear & Anchises, Paris, Patroclus \\ \hline
+
+31st January & Far-East 16 & Cloudy/Clear & 1974 FV1, Anchises, Ilioneus, Memnon, Mentor, Pandarus, Paris, Patroclus, Priamus, Troilus \\ \hline
+
+6th February & Far-East 16 & Cloudy/Clear & Anchises, Ilioneus, Memnon, Pandarus, Paris, Patroclus, Priamus, Troilus \\ \hline
+
+9th February & DRACO2 & Clear & Pandarus, Paris, Patroclus, Priamus \\ \hline
+
+11th February & DRACO2 & Clear & Anchises, Ilioneus, Memnon, Pandarus, Paris, Patroclus, Priamus, Troilus \\ \hline
+
+15th February & Far-East 16 & Clear & Anchises, Ilioneus, Memnon, Pandarus, Paris, Patroclus, Priamus, Troilus \\ \hline
+
+22nd February & Far-East 16 & Cloudy/Clear & 1974 FV1, Anchises, Ilioneus, Memnon, Mentor, Pandarus, Paris, Patroclus, Priamus, Troilus \\ \hline
+
+7th March & Far-East 16 & Clear & 1974 FV1, Anchises, Ilioneus, Memnon, Mentor, Pandarus, Paris, Patroclus, Priamus, Troilus \\ \hline
+
+10th March & Pt5m & Cloudy & Patroclus \\ \hline
+
+\end{tabularx}
+\caption{A record of the observations taken during the course of this investigation.}
+\label{tab: observing log}
+\end{table} 
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{0.5\textwidth}{ Y Y }
+\hhline{==}
+
+Asteroid & Observations \\ \hline
+
+Patroclus & 27th October 2001, 26th January 2003, 1st February 2004 5th February 2007, 17th October 2013, 24th September 2014, 13th January 2015, 13th March 2016, 12th January 2017 \\ \hline
+
+Priamus & 15th October 2011, 9th October 2012, 29th October 2013, 23rd January 2014, 2nd February 2016 \\ \hline 
+
+\end{tabularx}
+\caption{A record of the observations taken during the course of this investigation.}
+\label{tab: archival log}
+\end{table} 
+
+
+Given in Table \ref{tab: observing log} is a detailed observing log of all observations taken during the course of this investigation. Given in Table \ref{tab: archival log} is a record of all archival observations used in this investigation.
+
+\section{Error Ellipses for Patroclus Position} \label{app: error ellipses}
+
+The errors in the position of Patroclus were calculated using the covariance matrix of the distribution of positions. The covariance matrix, $\mathbf{C}$, for the positions is given below:
+\begin{equation}
+\mathbf{C} = 
+\begin{bmatrix}
+E_{xx} & E_{xy} & E_{xz} \\
+E_{yx} & E_{yy} & E_{yz} \\
+E_{zx} & E_{zy} & E_{zz} \\
+\end{bmatrix},
+\end{equation}
+where $E_{ij} = E[(i - \mu_i)(j - \mu_j)],\ i,j = X,Y,Z$, $E$ is the expectation operator, $X,\ Y,\ Z$ are the corresponding set of Cartesian coordinates, $\mu_X,\ \mu_Y,\mu_Z$ are the mean of the corresponding Cartesian coordinate set.
+
+The root of the diagonal elements of $\mathbf{C}$, $E_{xx},E_{y},E_{zz}$, are used as the error in each Cartesian coordinate. Explicitly:
+\begin{align}
+\sigma_x &= \sqrt{E_{xx}}, \\
+\sigma_y &= \sqrt{E_{yy}}, \\
+\sigma_z &= \sqrt{E_{zz}},
+\end{align}
+where $\sigma_x,\sigma_y,\sigma_z$ is the error in the respective Cartesian coordinate and these are the errors used Table \ref{tab: patroclus position xyz}.
+
+The eigenvalues, $\lambda_1,\ \lambda_2,\ \lambda_3$, and eigenvectors, $\mathbf{v}_1,\ \mathbf{v}_2,\ \mathbf{v}_3$, of $\mathbf{C}$ can then be found to construct the error ellipsoid. The root of the eigenvalues represent the semi-axes lengths of the ellipsoid. The ellipsoid is rotated so that each eigenvalue semi-axis length is aligned in the direction of its corresponding eigenvector.
+
+\section{Computational Programs}
+
+All code used to form the results in this investigation is available here: \url{https://github.com/baldimort/Trojans-Lucy-Mission}.
+
+\end{document}
