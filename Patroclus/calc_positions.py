@@ -132,16 +132,18 @@ ax.set_zlabel('z (AU)')
 
 #ax.plot([means[0],means[0]+1e-5*vmax[0]],[means[1],means[1]+1e-5*vmax[1]],[means[2],means[2]+1e-5*vmax[2]],'y-')
 
-fig2 = plt.figure(figsize=(3/4*6.4,3/4*3*6.4))
+fig2 = plt.figure(figsize=(3/4*6.4,3/4*6.4))
 
 axs = []
-for i in range(3):
-	axs.append(fig2.add_subplot(311+i))
+
+axs.append(fig2.add_subplot(221))
+axs.append(fig2.add_subplot(223))
+axs.append(fig2.add_subplot(222))
 
 #PLOTTING ERROR ELLIPSES
 
 
-for i in range(1,1+int(sys.argv[4])): #tell it how many ellipses you want
+for i in range(3,4): #tell it how many ellipses you want
 	#XY
 	covxy = np.cov(out[:,0],out[:,1])
 	eig_numxy, eig_vecxy = np.linalg.eig(covxy)
