@@ -25,13 +25,13 @@ frac_errors = (params - JPL_params)/JPL_params
 fig = plt.figure(figsize=(6.4*3/4,6.4*3/4))
 ax = fig.add_subplot(111)
 
-titles = [r'$\mu$',r'$\Omega$',r'$a$',r'$e$',r'$i$',r'$\omega$']
+titles = ['Mean Anomaly','Long. of Asc. Node','Semi-major axis','Eccentricity','Inclination','Arg. of Perihelion']
 
 def fit(x,m,c,k):
 	return np.exp(-k*x+m)+c
 
 for i,val in enumerate(titles):
-	fitparams = curve_fit(fit,data[:,0],abs(frac_errors[:,i]))[0]
+	#fitparams = curve_fit(fit,data[:,0],abs(frac_errors[:,i]))[0]
 	line, = ax.plot(data[:,0],abs(frac_errors[:,i]),'-o',label=titles[i],ms=3)
 	#ax.plot(data[:,0],fit(data[:,0],fitparams[0],fitparams[1],fitparams[2]),color=line.get_color())
 	f.write('{}	{}\n'.format(params[-1,i],frac_errors[-1,i]))
