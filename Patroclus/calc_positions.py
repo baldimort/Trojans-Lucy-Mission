@@ -71,7 +71,7 @@ out = np.apply_along_axis(find_pos,1,rand_params,date)
 #print "{:.32f} {:.32f}".format(out[0,0],out[1,0])
 #np.savetxt('params',rand_params)
 
-
+'''
 fig = plt.figure(figsize=(3/4*6.4,3/4*6.4))
 ax = fig.add_subplot(111,projection='3d')
 ax.scatter(out[:,0],out[:,1],out[:,2],s=1)
@@ -131,7 +131,7 @@ ax.set_ylabel('y (AU)')
 ax.set_zlabel('z (AU)')
 
 #ax.plot([means[0],means[0]+1e-5*vmax[0]],[means[1],means[1]+1e-5*vmax[1]],[means[2],means[2]+1e-5*vmax[2]],'y-')
-
+'''
 fig2 = plt.figure(figsize=(3/4*6.4,3/4*6.4))
 
 axs = []
